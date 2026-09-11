@@ -36,7 +36,13 @@ uv run python modify_context_window.py ~/.codex
 3. 提示输入新的 `context_window` 数值。
 4. 逐个文件确认是否修改。
 
-## 备份说明
+## 备份
+
+默认不生成备份。如需在修改前自动创建时间戳备份，请显式添加 `--backup`：
+
+```bash
+uv run python modify_context_window.py ~/.codex --backup
+```
 
 每次修改前会在原文件同目录创建类似下面格式的备份：
 

@@ -337,6 +337,11 @@ def confirm(label: str) -> bool:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("folder", type=Path, help="folder to search recursively")
+    parser.add_argument(
+        "--backup",
+        action="store_true",
+        help="create timestamped backups before modifying files",
+    )
     args = parser.parse_args()
 
     folder = args.folder
@@ -400,7 +405,7 @@ def main() -> int:
             continue
         if not confirm(f"{entry.path}:{entry.context_line}"):
             continue
-        if entry.path not in backed_up:
+        if args.backup and entry.path not in backed_up:
             backup = create_backup(entry.path, timestamp)
             backed_up.add(entry.path)
             console.print(f"Created backup: {backup}")
